@@ -1,0 +1,31 @@
+{% extends "layout.html" %} {% block title %}FoodFinder{% endblock %} {% block
+content %}
+
+<form action="/search" method="POST">
+  <div
+    class="container square-box d-flex justify-content-center align-items-center text-center"
+  >
+    <div class="row g-3">
+      <div class="col">
+        <h1>FoodFinder</h1>
+      </div>
+      <div class="col-sm-10">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Item"
+          aria-label="Item"
+          autofocus
+          autocomplete="off"
+          name="item"
+          id="item"
+        />
+      </div>
+      <div class="col-sm-2">
+        <button type="submit" class="btn btn-outline-primary">Search</button>
+      </div>
+    </div>
+  </div>
+</form>
+
+{% endblock %}

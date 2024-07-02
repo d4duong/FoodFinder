@@ -1,0 +1,45 @@
+{% extends "layout.html" %} {% block title %}Sign up{% endblock %} {% block
+content %}
+
+<form action="/sign-up" method="POST">
+  <br />
+  <h3 align="center">Sign up</h3>
+  <div class="mb-3">
+    <input
+      autocomplete="off"
+      autofocus
+      class="form-control mx-auto w-auto"
+      id="username"
+      name="username"
+      placeholder="Username"
+      type="text"
+    />
+  </div>
+  <div class="mb-3">
+    <input
+      autocomplete="off"
+      autofocus
+      class="form-control mx-auto w-auto"
+      id="password1"
+      name="password1"
+      placeholder="Password"
+      type="password"
+    />
+  </div>
+  <div class="mb-3">
+    <input
+      autocomplete="off"
+      autofocus
+      class="form-control mx-auto w-auto"
+      id="password2"
+      name="password2"
+      placeholder="Confirm Password"
+      type="password"
+    />
+  </div>
+  <div align="center">
+    <button type="submit" class="btn btn-secondary">Sign up</button>
+  </div>
+</form>
+
+{% endblock %}

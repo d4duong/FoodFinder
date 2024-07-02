@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    MultiSearch
+{% endblock %}
+
+{% block content %}
+<form action="/multi-search" method="POST">
+    <p class="fs-1 fw-medium text-center vert">FoodFinder</p>
+    <div class="mb-3">
+        <textarea class="form-control" autofocus autocomplete="off" aria-label="items" name="items" id="items" rows="8" 
+        placeholder="Paste entire shopping list here.&#10;Separate each item with a new line.&#10;MultiSearch will return the top 2 results (from each supermarket) of each item on the shopping list."></textarea>
+    </div>
+    <div align="center">
+        <button type="submit" class="btn btn-outline-primary mt-2">MultiSearch</button>
+    </div>
+        
+</form>
+
+{% endblock %}

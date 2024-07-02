@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    MultiSearch Results
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <p class="fs-4 fw-bold">MultiSearch Results</p>
+  </div>
+  <div class="container">
+    <div class="dropdown">
+      <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Order by
+      </button>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="/results-multi-brand">Brand</a></li>
+        <li><a class="dropdown-item" href="/results-multi-pricelth">Price (Low to High)</a></li>
+        <li><a class="dropdown-item" href="/results-multi-pricehtl">Price (High to Low)</a></li>
+        <li><a class="dropdown-item" href="/results-multi">Normal</a></li>
+      </ul>
+    </div>
+  </div>
+
+
+<div class="container mt-4 d-flex justify-content-center align-items-center">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-6 g-4">
+        {% for row in rows %}
+        {% if row.brand == 'Coles' %}
+        <div class="col">
+            <div class="card border-danger mb-3 h-100">
+                <h6 class="card-header text-center">
+                    {{ row.search }}
+                </h6>
+                <a href="{{ row.link }}" target="_blank">
+                    <img src="{{ row.image }}" class="card-img-top" alt="{{ row.title }}">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title">{{ row.price | aud}}</h5>
+                    <h6 class="card-subtitle mb-2 text-danger">{{ row.brand }}</h6>
+                    <a href="{{ row.link }}" target="_blank" class="link-body-emphasis link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover">{{ row.title }}</a>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="/{{ row.id }}/add_to_cart" class="btn btn-outline-dark">Add to Cart</a>    
+                </div>                
+            </div>
+        </div>
+        {% elif row.brand == 'Woolworths' %}
+        <div class="col">
+            <div class="card border-success mb-3 h-100">
+                <h6 class="card-header text-center">
+                    {{ row.search }}
+                </h6>
+                <a href="{{ row.link }}" target="_blank">
+                    <img src="{{ row.image }}" class="card-img-top" alt="{{ row.title }}">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title">{{ row.price | aud}}</h5>
+                    <h6 class="card-subtitle mb-2 text-success">{{ row.brand }}</h6>
+                    <a href="{{ row.link }}" target="_blank" class="link-body-emphasis link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover">{{ row.title }}</a>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="/{{ row.id }}/add_to_cart" class="btn btn-outline-dark">Add to Cart</a>    
+                </div>                
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

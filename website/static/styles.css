@@ -1,0 +1,33 @@
+.square-box {
+  max-width: 700px;
+  min-height: 700px;
+  border: 0px solid black;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #fff;
+}
+  
+tbody tr:nth-child(even) {
+  background-color: #cccccc;
+}
+
+.vert {
+  margin-top: 15%
+}
+::-webkit-input-placeholder {
+  font-style: italic;
+}
+:-moz-placeholder {
+  font-style: italic;  
+}
+::-moz-placeholder {
+  font-style: italic;  
+}
+:-ms-input-placeholder {  
+  font-style: italic; 
+}
+
+.box {
+  margin-left: max(10%);
+}

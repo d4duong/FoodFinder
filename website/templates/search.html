@@ -1,0 +1,25 @@
+{% extends "layout.html" %} {% block title %}FoodFinder{% endblock %} {% block
+content %}
+
+<div class="mb-3">
+  <table style="width: 80%">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Price</th>
+        <th>Price per weight</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for info in scrape %}
+      <tr>
+        <td>{{ info.title }}</td>
+        <td>{{ info.price }}</td>
+        <td>{{ info.pricePerWeight}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}
