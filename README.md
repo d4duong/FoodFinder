@@ -2,10 +2,10 @@
 ### Video Demo:  [Watch the Demo](https://youtu.be/OpHqSqjJzCo)
 ### Description:
 
-FoodFinder is a web application that allows users to search for one or more grocery items and receive results from two of the biggest supermarkets in Australia: Coles and Woolworths. The application uses web scraping and API integration to gather data from these supermarkets, store it in SQLite databases, and display the results on a web interface built with Flask, Bootstrap, and Python.
+FoodFinder is a web application designed to help users search for grocery items across two of Australia's largest supermarkets: Coles and Woolworths. By leveraging web scraping and API integration, FoodFinder gathers data from these supermarkets, stores it in SQLite databases and displays the results through a user-friendly web interface built with Flask, Bootstrap, and Python.
 
-- **Coles**: Data is scraped directly from the Coles website using BeautifulSoup, as it has a static web page structure.
-- **Woolworths**: Data is fetched from Woolworths' API, which provides JSON responses due to its dynamic web page structure.
+- **Coles**: Data is scraped directly from the Coles website using BeautifulSoup, leveraging its static web page structure.
+- **Woolworths**: Data is fetched from Woolworths' API, which provides JSON responses to accommodate its dynamic web page structure.
 
 ## Table of Contents
 
@@ -25,7 +25,7 @@ FoodFinder is a web application that allows users to search for one or more groc
 - SQLite
 - pip (Python package installer)
 
-### Setup
+### Setup (Linux/Windows)
 
 1. **Clone the repository:**
 
@@ -75,65 +75,78 @@ FoodFinder is a web application that allows users to search for one or more groc
 
 ### Features
 
-- **User Authentication**: Sign up, log in, and log out functionality.
-- **Price Comparison**: Search for grocery items across Coles and Woolworths and compare prices.
-- **Shopping Cart Management**: Add, view, and remove items from a shopping cart.
-- **Multi-Item Search**: Search for multiple items at once and view the results on one page.
+- **User Authentication**: Sign up, log in, and log out functionality for secure user access.
+- **Price Comparison**: Compare prices for grocery items across Coles and Woolworths.
+- **Shopping Cart Management**: Add, view, and remove items from a shopping cart, with quantity tracking
+- **Multi-Item Search**: Search for multiple items at once and view the consolidated results on one page.
 - **Sorting Options**: Sort search results by brand, price (low to high), or price (high to low).
 
+## Project Structure
 
-### website/
+### Functions/Routes
 
 **__init__.py**
 
-The __init.py__ file is used to notify the Python interpreter that the directory containing the file (*website/*) is a Python package. Additionally, it contains initialised code and several function definitions. These include:
+The **__init__.py** file initializes the Flask application and defines several key functions:
 
-- *create_app()*: creates a Flask application object so that its functions, methods and attributes can be used.
-- *login_required(f)*: a decorated function that only allows the user to access certain routes if they have been authenticated by providing valid credentials via the */login* page.
-- *aud(value)*: formats values/item prices in Australian dollars (AUD).
-- *get_cookies()*: retrieves cookies from the Woolworths website.
-- *coles(URL)*: scrapes information of each grocery item from a single query on the Coles website.
-- *woolworths(searchTerm)*: collects all the JSON data from a “products” API endpoint on the Woolworths website
+- **create_app()**: Initializes the Flask application and configures its settings.
+- **login_required(f)**: A decorator to ensure certain routes can only be accessed by authenticated users.
+- **aud(value)**: Formats values (e.g., prices) as Australian dollars (AUD).
+- **get_cookies()**: Retrieves cookies from the Woolworths website to handle sessions.
+- **coles(URL)**: Scrapes grocery item data from the Coles website.
+- **woolworths(searchTerm)**: Fetches JSON data from Woolworths' API for a given search term.
 
 
 **auth.py**
 
-The **auth.py** file ensures only authorised users can access certain features of FoodFinder. It stores the user’s session over a period of time and allows them to log in, log out and sign up. The user’s data is then stored in a SQL database named “users.db”.
+The **auth.py** file handles user authentication, including login, logout, and sign-up functionalities. User data is stored securely in the **users.db** SQLite database.
 
 **views.py**
 
-The **views.py** file handles the majority of the routes in the FoodFinder website. Each route then calls a specific function. Among them are:
+The **views.py** file manages the core functionality of the FoodFinder app, defining routes and the logic for searching, displaying results, and managing the shopping cart:
 
-- *search()*: takes a single grocery item as a user input, scrapes the results of that query from the Coles and Woolworths website, stores them in the “scrape.db” database and then redirects the - user to the */results* route
-- *multi_search()*: takes multiple grocery items i.e. a shopping list, retrieves the top two results of each item from Coles and Woolworths,  stores them in the “scrape.db” database and then redirects the user to the */results-multi* route
-- *results()*, *results_multi()* and all their respective variations passes the scraped data from “scrape.db” into a .html file so that they can be displayed to the user later on.
-- *cart()*: retrieves the data of all the items added to the “cart.db” database
-- *add_to_cart(food_id)*: allows for the “Add to Cart” button to be clicked under a particular search result and for its data to be added to the “cart.db” database. If the same item is added to the cart again, it’s quantity will increase by one each time the button is clicked.
-- *remove_from_cart(food_id)*: does the opposite of the *add_to_cart()* function.
-- *clear_cart()*: removes all items from the cart by truncating the “cart” table in “cart.db”.
+- **search()**: Handles single-item searches, scrapes data from Coles and Woolworths, stores the results in scrape.db, and redirects to the /results route.
+- **multi_search()**: Handles multi-item searches, retrieves the top two results for each item from Coles and Woolworths, stores them in scrape.db, and redirects to the /results-multi route.
+- **results()**, **results_multi()**: Display search results by passing data from scrape.db to the appropriate HTML templates.
+- **cart()**: Retrieves and displays items stored in the cart.db database.
+- **add_to_cart(food_id)**: Adds an item to the cart, increasing the quantity if the item is already present.
+- **remove_from_cart(food_id)**: Decreases the quantity or removes an item from the cart.
+- **clear_cart()**: Empties the cart by deleting all entries from the cart.db database.
 
 
-### /website/templates/
+### Templates
 
-The **templates/** directory stores all of the HTML files. They each extend upon a base template, namely “layout.html”, and use Jinja to allow for more of a dynamic display.
+The **templates/** directory contains the HTML files used by the application, structured using Jinja templating to allow dynamic content generation based on user interactions.
 
+- **layout.html**: The base template extended by other HTML files
+- **Various HTML files**: Specific pages for search results, the shopping cart, login, sign-up, etc.
+
+### Databases
 
 **users.db**
 
-The **users.db** file is a database that stores the login data of all users. When a user signs up, their login data is added to the “users” table under three columns: "id", "username" and "password". The password stored is the hash of the actual password so that it is more secure. When the user logs in, the details they entered is cross checked with that stored in the database to authorise their access.
+The **users.db** database stores user login information. Passwords are securely hashed before storage to protect user data.
 
 **scrape.db**
 
-The **scrape.db** file is another database that stores the data of the grocery items scraped from the Coles and Woolworths website. It is utilised in the *search()* and *multi_search()* function to display data such as the brand, title, price, image and URL of every grocery item displayed.
+The **scrape.db** database stores the results of grocery item searches from Coles and Woolworths, including details such as brand, title, price, image, and link.
 
 **cart.db**
 
-The **cart.db** file stores the data of all the items that the user have chosen to add to their cart. If a particular item already exists it the cart but is added again, only its quantity is updated in the table “cart”. It contains almost the exact same columns as scrape.db, but has an extra column “qty”.
+The **cart.db** database tracks the items users add to their shopping cart, including quantities.
 
-**/static/styles.css**
+### Styling
 
-The *static/* directory stores the **styles.css** file which contains some extra CSS. This was used to make minor adjustments to the already pre-existing CSS included in Boostrap.
+The *static/* directory contains the **styles.css** file which includes custom CSS used to make minor adjustments to the Bootstrap-based design.
 
 **main.py**
 
-The **main.py** is the file that runs the entire program.
+The **main.py** is the file the entry point of the application, responsible for running the Flask app.
+
+## Contributing
+
+Contributions to FoodFinder are very much welcome! If you'd like to contribute, please fork the repository and submit a pull request.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
