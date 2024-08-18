@@ -1,9 +1,86 @@
 # FoodFinder
-### Video Demo:  <https://youtu.be/OpHqSqjJzCo>
+### Video Demo:  [Watch the Demo](https://youtu.be/OpHqSqjJzCo)
 ### Description:
 
+FoodFinder is a web application that allows users to search for one or more grocery items and receive results from two of the biggest supermarkets in Australia: Coles and Woolworths. The application uses web scraping and API integration to gather data from these supermarkets, store it in SQLite databases, and display the results on a web interface built with Flask, Bootstrap, and Python.
 
-FoodFinder is a web application that allows users to search for one or more grocery items and receive results from two of the biggest supermarkets in Australia: Coles and Woolworths. Since Coles has a static website, its data was scraped directly using BeautifulSoup. Since Woolworths has a dynamic page, its JSON data was retrieved from an API endpoint. All the scraped data was then stored in SQLite and presented on my webpage using Bootstrap, Flask and Python.
+- **Coles**: Data is scraped directly from the Coles website using BeautifulSoup, as it has a static web page structure.
+- **Woolworths**: Data is fetched from Woolworths' API, which provides JSON responses due to its dynamic web page structure.
+
+## Table of Contents
+
+- [Installation](#installation)
+- [Usage](#usage)
+- [Features](#features)
+- [Project Structure](#project-structure)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Installation
+
+### Prerequisites
+
+- Python 3.8 or higher
+- Flask
+- SQLite
+- pip (Python package installer)
+
+### Setup
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/yourusername/foodfinder.git
+   cd foodfinder
+
+2. **Create and activate a virtual environment:**
+    ```
+    python3 -m venv venv
+    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+    ```
+3. **Install the dependencies:**
+    ```
+    pip install -r requirements.txt
+    ```
+
+4. **Set up the SQLite databases:**
+
+    Initialize the databases by running the following commands:
+    ```
+    sqlite3 scrape.db < init_scrape.sql
+    sqlite3 cart.db < init_cart.sql
+    sqlite3 users.db < init_users.sql
+    ```
+
+5. **Run the application**
+    ```
+    python main.py
+    ```
+6. **Access the application:**
+
+    Open your browser and go to http://127.0.0.1:5000.
+
+## Usage
+### Search for Items
+
+- **Single Search**: Enter an item name in the search bar and press "Search". The application will display the results from both Coles and Woolworths.
+- **Multi-Search**: Enter multiple items (one per line) and press "Multi-Search". The application will display results for all items from both supermarkets.
+
+### Manage Cart
+
+- **Add to Cart**: Click on the "Add to Cart" button next to any search result to add the item to your shopping cart.
+- **View Cart**: Go to the Cart page to view all items added to your cart and the total price.
+- **Remove from Cart**: Click the "Remove" button to decrease the quantity or remove an item from your cart.
+- **Clear Cart**: Click the "Clear Cart" button to remove all items from your cart.
+
+### Features
+
+- **User Authentication**: Sign up, log in, and log out functionality.
+- **Price Comparison**: Search for grocery items across Coles and Woolworths and compare prices.
+- **Shopping Cart Management**: Add, view, and remove items from a shopping cart.
+- **Multi-Item Search**: Search for multiple items at once and view the results on one page.
+- **Sorting Options**: Sort search results by brand, price (low to high), or price (high to low).
+
 
 ### website/
 
@@ -22,8 +99,6 @@ The __init.py__ file is used to notify the Python interpreter that the directory
 **auth.py**
 
 The **auth.py** file ensures only authorised users can access certain features of FoodFinder. It stores the user’s session over a period of time and allows them to log in, log out and sign up. The user’s data is then stored in a SQL database named “users.db”.
-
-
 
 **views.py**
 
